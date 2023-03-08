@@ -1,0 +1,19 @@
+name: pg-emg3d
+channels:
+    - conda-forge
+    - defaults
+    - gimli
+dependencies:
+    - python=3.8
+    - pygimli>1.3.0
+    - jupyter
+    - ipywidgets
+    - ipykernel
+    - emg3d
+    - empymod
+    - discretize
+    - xarray
+    - matplotlib
+    - h5py
+    - tqdm
+    - scooby
