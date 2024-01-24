@@ -9,7 +9,6 @@ dependencies:
     - jupyter
     - ipywidgets
     - ipykernel
-    - emg3d
     - empymod
     - discretize
     - xarray
@@ -17,3 +16,6 @@ dependencies:
     - h5py
     - tqdm
     - scooby
+    - pip
+    - pip:
+      - git+https://github.com/emsig/emg3d@inversion
