@@ -1,11 +1,10 @@
 name: pg-emg3d
 channels:
-    - conda-forge
-    - defaults
     - gimli
+    - conda-forge
 dependencies:
     - python
-    - pygimli>=1.4
+    - pgcore
     - jupyter
     - ipywidgets
     - ipykernel
@@ -19,3 +18,4 @@ dependencies:
     - pip
     - pip:
       - git+https://github.com/emsig/emg3d@inversion
+      - git+https://github.com/gimli-org/gimli@dev
