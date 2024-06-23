@@ -24,7 +24,9 @@ grid = emg3d.TensorMesh([hx, hyz, hyz], [-500, -1000, -1500])
 
 model_start = emg3d.Model(grid, 1.0, mapping='Conductivity')
 model_true = emg3d.Model(grid, 1.0, mapping='Conductivity')
-model_true.property_x[2:5, 1:-1, 1:-2] = 0.001
+model_true.property_x[2:5, 1:-1, 1:-2] = 0.001  # Target
+model_start.property_x[:, :, -1] = 3.3  # Water
+model_true.property_x[:, :, -1] = 3.3
 
 # Create an emg3d Simulation instance
 sim = emg3d.simulations.Simulation(
