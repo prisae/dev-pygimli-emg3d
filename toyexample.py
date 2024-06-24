@@ -18,34 +18,45 @@ survey = emg3d.surveys.Survey(
     relative_error=0.05,
 )
 
-hx = np.ones(8)*500.0
-hyz = np.ones(4)*500.0
-grid = emg3d.TensorMesh([hx, hyz, hyz], [-500, -1000, -1500])
+for case in ['tiny', 'small']:
+    if case == 'small':
+        hx = np.ones(16)*250.0
+        hyz = np.ones(8)*250.0
+        grid = emg3d.TensorMesh([hx, hyz, hyz], [-500, -1000, -1750])
+    else:
+        hx = np.ones(8)*500.0
+        hyz = np.ones(4)*500.0
+        grid = emg3d.TensorMesh([hx, hyz, hyz], [-500, -1000, -1500])
 
-model_start = emg3d.Model(grid, 1.0, mapping='Conductivity')
-model_true = emg3d.Model(grid, 1.0, mapping='Conductivity')
-model_true.property_x[2:5, 1:-1, 1:-2] = 0.001  # Target
-model_start.property_x[:, :, -1] = 3.3  # Water
-model_true.property_x[:, :, -1] = 3.3
+    model_start = emg3d.Model(grid, 1.0, mapping='Conductivity')
+    model_true = emg3d.Model(grid, 1.0, mapping='Conductivity')
+    # Target
+    if case == 'small':
+        model_true.property_x[3:12, 2:-2, 3:-3] = 0.001
+    else:
+        model_true.property_x[2:5, 1:-1, 1:-2] = 0.001
+    # Water
+    model_start.property_x[:, :, -1] = 3.3
+    model_true.property_x[:, :, -1] = 3.3
 
-# Create an emg3d Simulation instance
-sim = emg3d.simulations.Simulation(
-    survey=survey,
-    model=model_true,
-    gridding='both',
-    max_workers=2,
-    gridding_opts={'center_on_edge': False},
-    receiver_interpolation='linear',
-    tqdm_opts=False,
-)
-sim.compute(observed=True)
-sim.clean('computed')
+    # Create an emg3d Simulation instance
+    sim = emg3d.simulations.Simulation(
+        survey=survey.copy(),
+        model=model_true,
+        gridding='both',
+        max_workers=2,
+        gridding_opts={'center_on_edge': False},
+        receiver_interpolation='linear',
+        tqdm_opts=False,
+    )
+    sim.compute(observed=True)
+    sim.clean('computed')
 
-sim.model = model_start
-sim.solver_opts = {'tol': 1e-3}
+    sim.model = model_start
+    sim.solver_opts = {'tol': 1e-3}
 
-sim.compute()
-survey.data['start'] = survey.data.synthetic
-sim.clean('computed')
+    sim.compute()
+    sim.survey.data['start'] = sim.survey.data.synthetic
+    sim.clean('computed')
 
-emg3d.save('toyexample.h5', sim=sim, model_true=model_true)
+    emg3d.save(f'toy-{case}.h5', sim=sim, model_true=model_true)
