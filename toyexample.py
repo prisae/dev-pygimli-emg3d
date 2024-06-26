@@ -47,13 +47,13 @@ for case in ['tiny', 'small']:
         max_workers=2,
         gridding_opts={'center_on_edge': False},
         receiver_interpolation='linear',
+        solver_opts = {'tol_gradient': 1e-3},
         tqdm_opts=False,
     )
     sim.compute(observed=True)
     sim.clean('computed')
 
     sim.model = model_start
-    sim.solver_opts = {'tol': 1e-3}
 
     sim.compute()
     sim.survey.data['start'] = sim.survey.data.synthetic
