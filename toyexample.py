@@ -8,6 +8,14 @@ rec = emg3d.surveys.txrx_coordinates_to_dict(
         emg3d.RxElectricPoint,
         (np.tile(rec_x, rec_y.size), rec_y.repeat(rec_x.size), rec_z, 0, 0)
 )
+# src_x = np.array([0, 1500, 3000])
+# src_y = np.array([-500, 0, 500])
+# src_z = 50.0
+# src = emg3d.surveys.txrx_coordinates_to_dict(
+#         emg3d.TxElectricDipole,
+#         (np.tile(src_x, src_y.size), src_y.repeat(src_x.size), src_z, 0, 0)
+# )
+# frequencies = np.array([0.5, 1.0, 5.0])
 src = emg3d.TxElectricDipole((0, 0, 0, 0, 0))
 frequencies = np.array([1.0, ])
 survey = emg3d.surveys.Survey(
@@ -44,13 +52,13 @@ for case in ['tiny', 'small']:
         survey=survey.copy(),
         model=model_true,
         gridding='both',
-        max_workers=2,
+        max_workers=10,
         gridding_opts={'center_on_edge': False},
         receiver_interpolation='linear',
         solver_opts = {'tol_gradient': 1e-3},
         tqdm_opts=False,
     )
-    sim.compute(observed=True)
+    sim.compute(observed=True, min_offset=400)
     sim.clean('computed')
 
     sim.model = model_start
