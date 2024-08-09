@@ -1,13 +1,11 @@
-name: pg-emg3d
+name: simpeg-emg3d
 channels:
-    - gimli
     - conda-forge
 dependencies:
     - python
+    - emg3d
     - jupyter
     - ipykernel
-    - empymod
-    - simpeg>=0.22
     - xarray
     - matplotlib
     - ipympl
@@ -16,5 +14,5 @@ dependencies:
     - scooby
     - pip
     - pip:
-      - git+https://github.com/emsig/emg3d@inversion
-      - git+https://github.com/gimli-org/gimli@dev
+      - git+https://github.com/prisae/simpeg@generalization-for-emg3d
+      - git+https://github.com/emsig/emg3d@simpeg

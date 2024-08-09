@@ -1,0 +1,19 @@
+name: simpeg-emg3d-old
+channels:
+    - conda-forge
+dependencies:
+    - python<3.10
+    - emg3d
+    - jupyter
+    - discretize<0.8
+    - ipykernel
+    - xarray
+    - matplotlib<3.6
+    - memory_profiler
+    - ipympl
+    - h5py
+    - tqdm
+    - scooby
+    - pip
+    - pip:
+      - git+https://github.com/simpeg/simpeg@emg3d-solver-new
