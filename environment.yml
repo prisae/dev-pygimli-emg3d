@@ -6,8 +6,8 @@ dependencies:
     - python
     - jupyter
     - ipykernel
+    - pygimli>=1.5.2
     - empymod
-    - simpeg>=0.22
     - xarray
     - matplotlib
     - ipympl
@@ -17,4 +17,3 @@ dependencies:
     - pip
     - pip:
       - git+https://github.com/emsig/emg3d@inversion
-      - git+https://github.com/gimli-org/gimli@dev
