@@ -16,4 +16,4 @@ dependencies:
     - scooby
     - pip
     - pip:
-      - git+https://github.com/emsig/emg3d@inversion
+      - git+https://github.com/emsig/emg3d@inv-pygimli
