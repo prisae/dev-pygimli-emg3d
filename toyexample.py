@@ -102,11 +102,10 @@ def get_data(name):
     return sim, model_true, model_start, grid
 
 
-def plot_and_print_input():
-    pass
+def plot_models(sim, mstart, mtrue, zind=1):
+    depth = np.round(mstart.grid.cell_centers_z[zind], 2)
+    print(f"Depth slice: {depth} m")
 
-
-def plot_models(sim, mstart, mtrue):
     popts1 = {'cmap': 'Spectral_r', 'norm': LogNorm(vmin=0.1, vmax=1000)}
     # popts2 = {'edgecolors': 'grey', 'linewidth': 0.5, 'cmap': 'Spectral_r',
     #           'norm': LogNorm(vmin=0.1, vmax=1000)}
@@ -139,7 +138,7 @@ def plot_models(sim, mstart, mtrue):
     ax3.set_title("Final Model (Ohm.m)")
 
     opts['normal'] = 'Z'
-    opts['ind'] = 1
+    opts['ind'] = zind
 
     # True model
     out4, = grid.plot_slice(
